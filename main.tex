@@ -25,9 +25,11 @@
 
 \begin{document}
 
-% ===================== MATERIAL PRELIMINAR =====================
-\frontmatter
+% Numeración arábiga continua en todo el documento (sin \frontmatter,
+% que usaría romanos en el material preliminar).
+\pagenumbering{arabic}
 
+% ===================== MATERIAL PRELIMINAR =====================
 \input{portada/portada}
 \input{portada/aprobacion}
 \input{portada/dedicatoria}
@@ -39,8 +41,6 @@
 \listoftables
 
 % ===================== CUERPO PRINCIPAL =====================
-\mainmatter
-
 % Estructura según Reglamento de Titulación (Art. 25):
 % introducción + tres apartados (marco teórico, marco empírico, conclusiones)
 \input{capitulos/01-introduccion}
@@ -49,8 +49,6 @@
 \input{capitulos/04-conclusiones}
 
 % ===================== MATERIAL FINAL =====================
-\backmatter
-
 % --- Referencias bibliográficas (APA) ---
 \printbibliography[heading=bibintoc,title={Referencias Bibliográficas}]
 
