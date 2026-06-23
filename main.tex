@@ -4,7 +4,8 @@
 % Autor: Oscar G. Pavón
 % Compilar con: latexmk -pdf main.tex   (usa pdflatex + biber)
 % ============================================================
-\documentclass[12pt,a4paper,oneside]{book}
+% Reglamento de Titulación (Art. 22): hoja tamaño carta, letra 12.
+\documentclass[12pt,letterpaper,oneside]{book}
 
 % --- Configuración general (paquetes, márgenes, idioma, bibliografía) ---
 \input{config/preambulo}
@@ -40,13 +41,12 @@
 % ===================== CUERPO PRINCIPAL =====================
 \mainmatter
 
+% Estructura según Reglamento de Titulación (Art. 25):
+% introducción + tres apartados (marco teórico, marco empírico, conclusiones)
 \input{capitulos/01-introduccion}
-\input{capitulos/02-problema}
-\input{capitulos/03-marco-teorico}
-\input{capitulos/04-metodologia}
-\input{capitulos/05-desarrollo}
-\input{capitulos/06-resultados}
-\input{capitulos/07-conclusiones}
+\input{capitulos/02-marco-teorico}
+\input{capitulos/03-marco-empirico}
+\input{capitulos/04-conclusiones}
 
 % ===================== MATERIAL FINAL =====================
 \backmatter

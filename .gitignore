@@ -20,5 +20,5 @@
 *.vrb
 *.xdv
 
-# PDF compilado (descomentar si NO querés versionarlo)
-# main.pdf
+# PDF compilado (artefacto de build; se regenera al compilar)
+main.pdf

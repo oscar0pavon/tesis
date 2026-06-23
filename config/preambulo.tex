@@ -6,10 +6,22 @@
 \usepackage[utf8]{inputenc}      % entrada UTF-8 (si usás xelatex/lualatex, quitar)
 \usepackage[T1]{fontenc}         % codificación de fuente con acentos
 \usepackage[spanish,es-tabla]{babel} % español (es-tabla: "Tabla" en vez de "Cuadro")
-\usepackage{lmodern}             % fuente vectorial
 
-% --- Márgenes (normativa típica de tesis) ---
-\usepackage[a4paper,left=4cm,right=2.5cm,top=3cm,bottom=2.5cm]{geometry}
+% --- Tipografía Arial (Reglamento de Titulación, Art. 22) ---
+% Con pdflatex no existe Arial; se usa Helvetica (helvet), métricamente
+% equivalente a Arial. Para usar Arial REAL, compilar con xelatex/lualatex
+% y reemplazar este bloque por:
+%   \usepackage{fontspec}
+%   \setmainfont{Arial}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault} % fuente base sans-serif (estilo Arial)
+
+% --- Márgenes (Reglamento de Titulación, Art. 22) ---
+% izquierdo 4 cm, derecho 2 cm, superior e inferior 2,5 cm,
+% encabezado y pie de página a 1,25 cm del borde.
+\usepackage[letterpaper,
+  left=4cm, right=2cm, top=2.5cm, bottom=2.5cm,
+  headsep=0.76cm, headheight=14pt, footskip=1.25cm]{geometry}
 
 % --- Interlineado ---
 \usepackage{setspace}
@@ -26,7 +38,10 @@
 \usepackage{array}
 \usepackage{longtable}
 \usepackage{caption}
-\captionsetup{font=small,labelfont=bf}
+% Estilo APA 7: "Tabla N" / "Figura N" en negrita y, en la línea siguiente,
+% el título en cursiva (Guía APA — Biblioteca U. Americana).
+\captionsetup{labelfont=bf, textfont=it, labelsep=newline,
+  justification=raggedright, singlelinecheck=false}
 
 % --- Matemáticas ---
 \usepackage{amsmath,amssymb}
@@ -50,6 +65,7 @@
 % --- Bibliografía estilo APA (biblatex + biber) ---
 \usepackage[backend=biber,style=apa,sorting=nyt,language=spanish]{biblatex}
 \DeclareLanguageMapping{spanish}{spanish-apa}
+\setlength{\bibhang}{1.27cm}      % sangría francesa APA (1,27 cm = ½ pulg.)
 
 % --- Encabezados y pies de página ---
 \usepackage{fancyhdr}
@@ -58,6 +74,15 @@
 \fancyhead[L]{\nouppercase{\leftmark}}
 \fancyhead[R]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
+
+% --- Cita textual larga (>40 palabras), estilo APA ---
+% Bloque con sangría de 1,27 cm a la izquierda, sin comillas ni cursiva.
+% Uso:
+%   \begin{citalarga} ... texto de la cita ... \parencite[p.~90]{clave} \end{citalarga}
+\newenvironment{citalarga}{%
+  \begin{list}{}{\setlength{\leftmargin}{1.27cm}\setlength{\rightmargin}{0cm}}%
+  \item[]}{%
+  \end{list}}
 
 % --- Hipervínculos (debe ir casi al final) ---
 \usepackage[hidelinks]{hyperref}
