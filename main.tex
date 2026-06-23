@@ -1,0 +1,60 @@
+% ============================================================
+% Tesis de grado — Análisis de Sistemas
+% Universidad Americana de Paraguay
+% Autor: Oscar G. Pavón
+% Compilar con: latexmk -pdf main.tex   (usa pdflatex + biber)
+% ============================================================
+\documentclass[12pt,a4paper,oneside]{book}
+
+% --- Configuración general (paquetes, márgenes, idioma, bibliografía) ---
+\input{config/preambulo}
+
+% --- Datos de la tesis (editar aquí una sola vez) ---
+\newcommand{\tituloTesis}{Título de la tesis}
+\newcommand{\subtituloTesis}{Subtítulo opcional}
+\newcommand{\autorTesis}{Oscar G. Pavón}
+\newcommand{\tutorTesis}{Nombre del Tutor/a}
+\newcommand{\carreraTesis}{Análisis de Sistemas}
+\newcommand{\universidadTesis}{Universidad Americana de Paraguay}
+\newcommand{\ciudadTesis}{Asunción, Paraguay}
+\newcommand{\anioTesis}{2026}
+
+% --- Archivo de bibliografía ---
+\addbibresource{bibliografia/referencias.bib}
+
+\begin{document}
+
+% ===================== MATERIAL PRELIMINAR =====================
+\frontmatter
+
+\input{portada/portada}
+\input{portada/aprobacion}
+\input{portada/dedicatoria}
+\input{portada/agradecimientos}
+\input{portada/resumen}
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+% ===================== CUERPO PRINCIPAL =====================
+\mainmatter
+
+\input{capitulos/01-introduccion}
+\input{capitulos/02-problema}
+\input{capitulos/03-marco-teorico}
+\input{capitulos/04-metodologia}
+\input{capitulos/05-desarrollo}
+\input{capitulos/06-resultados}
+\input{capitulos/07-conclusiones}
+
+% ===================== MATERIAL FINAL =====================
+\backmatter
+
+% --- Referencias bibliográficas (APA) ---
+\printbibliography[heading=bibintoc,title={Referencias Bibliográficas}]
+
+% --- Anexos ---
+\input{anexos/anexos}
+
+\end{document}

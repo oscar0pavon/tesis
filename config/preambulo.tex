@@ -1,0 +1,72 @@
+% ============================================================
+% Preámbulo: paquetes y configuración global
+% ============================================================
+
+% --- Idioma y codificación ---
+\usepackage[utf8]{inputenc}      % entrada UTF-8 (si usás xelatex/lualatex, quitar)
+\usepackage[T1]{fontenc}         % codificación de fuente con acentos
+\usepackage[spanish,es-tabla]{babel} % español (es-tabla: "Tabla" en vez de "Cuadro")
+\usepackage{lmodern}             % fuente vectorial
+
+% --- Márgenes (normativa típica de tesis) ---
+\usepackage[a4paper,left=4cm,right=2.5cm,top=3cm,bottom=2.5cm]{geometry}
+
+% --- Interlineado ---
+\usepackage{setspace}
+\onehalfspacing                  % interlineado 1.5
+
+% --- Sangría y espacio entre párrafos ---
+\usepackage{indentfirst}         % sangra también el primer párrafo
+
+% --- Gráficos, tablas y figuras ---
+\usepackage{graphicx}
+\graphicspath{{figuras/}}        % carpeta de imágenes
+\usepackage{float}
+\usepackage{booktabs}            % tablas profesionales
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf}
+
+% --- Matemáticas ---
+\usepackage{amsmath,amssymb}
+
+% --- Código fuente ---
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{teal},
+  numbers=left,
+  numberstyle=\tiny,
+  frame=single,
+  breaklines=true,
+  showstringspaces=false,
+  captionpos=b
+}
+
+% --- Bibliografía estilo APA (biblatex + biber) ---
+\usepackage[backend=biber,style=apa,sorting=nyt,language=spanish]{biblatex}
+\DeclareLanguageMapping{spanish}{spanish-apa}
+
+% --- Encabezados y pies de página ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\nouppercase{\leftmark}}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- Hipervínculos (debe ir casi al final) ---
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  pdftitle={Tesis de grado},
+  pdfauthor={Oscar G. Pavón},
+  bookmarksnumbered=true
+}
+
+% --- Numeración de capítulos en el índice ---
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
