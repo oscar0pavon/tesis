@@ -11,28 +11,57 @@ documento.
 
 \section{Planteamiento del problema}
 
-Exposición clara de la situación problemática que motiva la investigación.
+En un modelo de planificación \emph{cooperativo} (no apropiativo), un proceso
+conserva la CPU hasta que voluntariamente la cede; en consecuencia, un proceso
+que no coopera puede monopolizar el procesador y provocar la inanición
+(\emph{starvation}) de los demás. Un mecanismo de planificación
+\emph{apropiativo} basado en Round Robin, en cambio, utiliza las interrupciones
+de temporizador (hardware) para desalojar al proceso en ejecución al expirar su
+\emph{quantum} y conmutar a otro listo, lo que permite repartir el tiempo de CPU
+de forma más equitativa. El problema consiste en determinar en qué medida este
+mecanismo mejora la distribución del tiempo de CPU y evita la inanición frente
+al modelo cooperativo.
 
 \subsection{Formulación del problema}
-¿Cuál es la pregunta central que guía la investigación?
+¿En qué medida la implementación de un mecanismo de planificación apropiativo
+(Round Robin) basado en interrupciones de hardware mejora la distribución del
+tiempo de CPU y evita la inanición (\emph{starvation}) de tareas en comparación
+con un modelo cooperativo?
 
 \subsection{Preguntas específicas}
 \begin{itemize}
-  \item Pregunta específica 1.
-  \item Pregunta específica 2.
-  \item Pregunta específica 3.
+  \item ¿Cómo incide el tamaño del \emph{quantum} en el tiempo de respuesta y
+    en el tiempo de espera promedio de los procesos?
+  \item ¿Qué diferencias de \emph{throughput} y latencia presenta el
+    planificador apropiativo basado en Round Robin frente al modelo cooperativo?
+  \item ¿Bajo qué condiciones de carga el esquema apropiativo evita la inanición
+    que sí se produce en el modelo cooperativo?
 \end{itemize}
 
 \section{Objetivos}
 
 \subsection{Objetivo general}
-Enunciar el objetivo general (verbo en infinitivo).
+Analizar y evaluar comparativamente el rendimiento de un planificador de
+procesos apropiativo basado en Round Robin frente a un modelo cooperativo en el
+núcleo de un sistema operativo, a partir de un prototipo implementado en
+lenguaje C, en términos de la distribución del tiempo de CPU y la inanición de
+procesos.
 
 \subsection{Objetivos específicos}
 \begin{itemize}
-  \item Objetivo específico 1.
-  \item Objetivo específico 2.
-  \item Objetivo específico 3.
+  \item Caracterizar los fundamentos y el comportamiento de la planificación
+    cooperativa y apropiativa de procesos en el núcleo de un sistema operativo.
+  \item Definir las métricas e indicadores de rendimiento (tiempo de respuesta,
+    tiempo de espera, tiempo de retorno, \emph{throughput} e inanición) que
+    servirán de base para la comparación.
+  \item Implementar en lenguaje C, como instrumento de medición, un prototipo
+    del planificador apropiativo basado en Round Robin —con interrupciones de
+    temporizador— y un modelo cooperativo de referencia.
+  \item Evaluar y comparar el rendimiento de ambos esquemas bajo distintas
+    condiciones de carga y tamaños de \emph{quantum}.
+  \item Interpretar los resultados para determinar en qué medida el esquema
+    apropiativo mejora la distribución del tiempo de CPU y evita la inanición de
+    procesos respecto del modelo cooperativo.
 \end{itemize}
 
 \section{Justificación}
