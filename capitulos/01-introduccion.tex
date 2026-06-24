@@ -21,57 +21,72 @@ documento.
 
 \section{Planteamiento del problema}
 
-En un modelo de planificación \emph{cooperativo} (no apropiativo), un proceso
-conserva la CPU hasta que voluntariamente la cede; en consecuencia, un proceso
-que no coopera puede monopolizar el procesador y provocar la inanición
-(\emph{starvation}) de los demás. Un mecanismo de planificación
-\emph{apropiativo} basado en Round Robin, en cambio, utiliza las interrupciones
-de temporizador (hardware) para desalojar al proceso en ejecución al expirar su
-\emph{quantum} y conmutar a otro listo, lo que permite repartir el tiempo de CPU
-de forma más equitativa. El problema consiste en determinar en qué medida este
-mecanismo mejora la distribución del tiempo de CPU y evita la inanición frente
-al modelo cooperativo.
+Todo sistema operativo de propósito general moderno emplea planificación
+\emph{apropiativa}: el núcleo utiliza las interrupciones de temporizador
+(hardware) para desalojar al proceso en ejecución al expirar su \emph{quantum} y
+conmutar a otro listo. Sin embargo, dentro de este paradigma coexisten distintas
+\emph{políticas} de planificación —Round Robin (RR), colas multinivel con
+retroalimentación (\emph{Multilevel Feedback Queue}, MLFQ) y planificación por
+prioridades— que representan compromisos de diseño diferentes. RR ofrece un
+reparto equitativo y un tiempo de respuesta acotado y predecible, con una
+implementación simple y de bajo costo, lo que lo hace atractivo para sistemas de
+recursos limitados o con requisitos de previsibilidad. MLFQ y las políticas por
+prioridades, en cambio, favorecen a las tareas interactivas y mejoran el tiempo
+de respuesta promedio en cargas mixtas, a costa de una mayor complejidad y del
+riesgo de inanición (\emph{starvation}). El problema consiste en determinar,
+mediante medición sobre un núcleo real, en qué medida cada política se ajusta
+mejor a distintos contextos de uso y condiciones de carga.
 
 \subsection{Formulación del problema}
-¿En qué medida la implementación de un mecanismo de planificación apropiativo
-(Round Robin) basado en interrupciones de hardware mejora la distribución del
-tiempo de CPU y evita la inanición (\emph{starvation}) de tareas en comparación
-con un modelo cooperativo?
+¿En qué medida las distintas políticas de planificación apropiativa (Round
+Robin, colas multinivel con retroalimentación y prioridades), implementadas y
+medidas sobre un núcleo real, difieren en la distribución del tiempo de CPU, el
+tiempo de respuesta, la productividad, la inanición (\emph{starvation}) y el
+costo de cambio de contexto, y qué contexto de uso favorece a cada una?
 
 \subsection{Preguntas específicas}
 \begin{itemize}
-  \item ¿Cómo incide el tamaño del \emph{quantum} en el tiempo de respuesta y
-    en el tiempo de espera promedio de los procesos?
-  \item ¿Qué diferencias de productividad (\emph{throughput}) y latencia presenta el
-    planificador apropiativo basado en Round Robin frente al modelo cooperativo?
-  \item ¿Bajo qué condiciones de carga el esquema apropiativo evita la inanición
-    que sí se produce en el modelo cooperativo?
+  \item ¿Cómo incide el tamaño del \emph{quantum} en el tiempo de respuesta, el
+    tiempo de espera promedio y el costo de cambio de contexto?
+  \item ¿Qué diferencias de productividad (\emph{throughput}), latencia y
+    equidad presentan Round Robin y MLFQ bajo cargas con mezcla de tareas
+    interactivas y de cómputo?
+  \item ¿Bajo qué condiciones aparece la inanición en MLFQ y en qué medida la
+    corrige un mecanismo de promoción periódica (\emph{priority boost})?
+  \item ¿Qué fracción del tiempo de CPU consume el propio mecanismo de
+    planificación (sobrecarga de cambio de contexto) en cada política y cómo
+    escala con el número de procesos?
+  \item ¿Qué política resulta más adecuada para contextos de previsibilidad o
+    recursos limitados frente a contextos de multitarea interactiva?
 \end{itemize}
 
 \section{Objetivos}
 
 \subsection{Objetivo general}
-Analizar y evaluar comparativamente el rendimiento de un planificador de
-procesos apropiativo basado en Round Robin frente a un modelo cooperativo en el
-núcleo de un sistema operativo, a partir de un prototipo implementado en
-lenguaje C, en términos de la distribución del tiempo de CPU y la inanición de
-procesos.
+Analizar y evaluar comparativamente el rendimiento de distintas políticas de
+planificación apropiativa de procesos —Round Robin, colas multinivel con
+retroalimentación y prioridades— en el núcleo de un sistema operativo, a partir
+de su implementación y medición sobre un prototipo real escrito en lenguaje C,
+con el fin de determinar qué política se ajusta mejor a cada contexto de uso.
 
 \subsection{Objetivos específicos}
 \begin{itemize}
-  \item Caracterizar los fundamentos y el comportamiento de la planificación
-    cooperativa y apropiativa de procesos en el núcleo de un sistema operativo.
+  \item Caracterizar los fundamentos y el comportamiento de las principales
+    políticas de planificación apropiativa de procesos (Round Robin, MLFQ y
+    prioridades) en el núcleo de un sistema operativo.
   \item Definir las métricas e indicadores de rendimiento (tiempo de respuesta,
-    tiempo de espera, tiempo de retorno, productividad e inanición) que
-    servirán de base para la comparación.
-  \item Implementar en lenguaje C, como instrumento de medición, un prototipo
-    del planificador apropiativo basado en Round Robin —con interrupciones de
-    temporizador— y un modelo cooperativo de referencia.
-  \item Evaluar y comparar el rendimiento de ambos esquemas bajo distintas
-    condiciones de carga y tamaños de \emph{quantum}.
-  \item Interpretar los resultados para determinar en qué medida el esquema
-    apropiativo mejora la distribución del tiempo de CPU y evita la inanición de
-    procesos respecto del modelo cooperativo.
+    tiempo de espera, tiempo de retorno, productividad, inanición y
+    sobrecarga de cambio de contexto) que servirán de base para la
+    comparación.
+  \item Implementar dichas políticas sobre el núcleo, en lenguaje C, utilizando
+    su mecanismo de interrupciones de temporizador y de cambio de contexto como
+    instrumento de medición.
+  \item Medir y comparar el rendimiento de cada política bajo distintas
+    condiciones de carga y tamaños de \emph{quantum}, incluyendo el costo del
+    cambio de contexto.
+  \item Interpretar los resultados para determinar qué política conviene en
+    contextos de previsibilidad y recursos limitados frente a contextos de
+    multitarea interactiva.
 \end{itemize}
 
 \section{Justificación}
