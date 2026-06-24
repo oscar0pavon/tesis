@@ -5,10 +5,10 @@ MAIN = main
 
 .PHONY: all clean distclean view
 
-# Compila el PDF (texto + bibliografía con biber)
-all: $(MAIN).pdf
-
-$(MAIN).pdf: $(MAIN).tex
+# Compila el PDF (texto + bibliografía con biber).
+# Se invoca latexmk siempre: él detecta qué archivos (.tex, .bib, etc.) cambiaron
+# y recompila solo si hace falta, así que editar capítulos también dispara build.
+all:
 	latexmk -pdf $(MAIN).tex
 
 # Elimina archivos auxiliares, conservando el PDF
@@ -22,5 +22,5 @@ distclean:
 	rm -f $(MAIN).bbl
 
 # Abre el PDF generado
-view: $(MAIN).pdf
+view: all
 	xdg-open $(MAIN).pdf
